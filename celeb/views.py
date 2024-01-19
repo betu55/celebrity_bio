@@ -5,4 +5,8 @@ from django.http import HttpResponse
 
 
 def landing(request):
-    return HttpResponse(f'<h1>This is the landig page</h1><h3>status_code: {HttpResponse.status_code}</h3>')
+    return HttpResponse(f'<h1>This is the landig page</h1><h3>status_code: {HttpResponse.status_code}</h1>')
+
+
+def moviesHandler(request):
+    return HttpResponse('<h2>This is the movies handler page</ht>')
