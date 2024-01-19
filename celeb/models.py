@@ -12,3 +12,23 @@ class Category(models.Model):
 
     def __str__(self):
         return self.name
+
+
+class Celebrity(models.Model):
+
+    category = models.ForeignKey(Category, on_delete=models.CASCADE)
+    name = models.CharField(max_length=100)
+    age = models.IntegerField()
+
+    def __str__(self):
+        return self.name
+
+
+class Movie(models.Model):
+
+    title = models.CharField(max_length=50)
+    release_date = models.CharField(max_length=20, null=True, blank=True)
+    actors = models.ManyToManyField(Celebrity, related_name='movies')
+
+    def __str__(self):
+        return self.title
