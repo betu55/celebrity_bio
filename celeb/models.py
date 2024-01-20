@@ -1,22 +1,11 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 # Create your models here.
 
 
-class Category(models.Model):
-
-    name = models.CharField(max_length=50, unique=True)
-    description = models.TextField(null=True, blank=True)
-    date_created = models.DateTimeField(auto_now_add=True)
-    date_updated = models.DateField(auto_now=True)
-
-    def __str__(self):
-        return self.name
-
-
 class Celebrity(models.Model):
 
-    category = models.ForeignKey(Category, on_delete=models.CASCADE)
     name = models.CharField(max_length=100)
     age = models.IntegerField()
 
@@ -27,8 +16,29 @@ class Celebrity(models.Model):
 class Movie(models.Model):
 
     title = models.CharField(max_length=50)
-    release_date = models.CharField(max_length=20, null=True, blank=True)
-    actors = models.ManyToManyField(Celebrity, related_name='movies')
+    release_year = models.IntegerField(null=True, blank=True)
+    celeb = models.ForeignKey(
+        Celebrity, on_delete=models.CASCADE, null=True, blank=True, related_name='movies')
 
     def __str__(self):
         return self.title
+
+
+class Question(models.Model):
+
+    question = models.CharField(max_length=300, null=True)
+    answer = models.CharField(max_length=1,  null=True)
+
+    def __str__(self):
+        return self.question
+
+
+class Option(models.Model):
+
+    question = models.ForeignKey(
+        Question, null=True, on_delete=models.CASCADE, related_name='options')
+    letter = models.CharField(max_length=1, null=True)
+    text = models.CharField(max_length=200)
+
+    def __str__(self):
+        return self.text
