@@ -1,0 +1,41 @@
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
+
+@layer components {
+  .search-bar {
+    @apply py-1.5 text-base col-span-5 text-slate-500 px-4 md:py-2.5 rounded-full shadow-xl focus:outline-none  bg-gradient-to-r from-sky-100 from-40% to-gray-100 to-60% bg-animate;
+  }
+  .search-btn {
+    @apply md:text-xl bg-slate-900 hover:bg-gray-400 duration-200 text-slate-200 rounded-full py-1 md:py-2  ml-1 md:mt-0 col-span-1;
+  }
+  .bg {
+    @apply bg-gradient-to-r from-sky-200 from-10% to-gray-200 to-90% bg-animate;
+  }
+  .card-bg {
+    @apply bg-gradient-to-r from-gray-700 from-20% to-gray-600 to-80% bg-animate shadow-xl m-1.5 hover:m-2 hover:duration-150 rounded-2xl;
+  }
+
+  .card-text {
+    @apply text-gray-300 rounded-md p-2 mr-1 text-start;
+  }
+}
+
+.bg-animate {
+  background-size: 400%;
+
+  -webkit-animation: gradientAnimation 10s ease-in-out infinite;
+  -moz-animation: gradientAnimation 10s ease-in-out infinite;
+  animation: gradientAnimation 10s ease-in-out infinite;
+}
+
+@keyframes gradientAnimation {
+  0% {
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}

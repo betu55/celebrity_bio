@@ -1,15 +1,28 @@
-from django.shortcuts import render
-from django.http import HttpResponse
+from rest_framework import generics
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
+
+from .serializer import *
+from .models import *
+from .gpt import *
 
 # Create your views here.
 
 
-# def landing(request):
-#     return HttpResponse(f'<h1>This is the landig page</h1><h3>status_code: {HttpResponse.status_code}</h1>')
-
-def landing(request):
-    return render(request, 'dummyTemplate.html')
+class CelebView(generics.ListAPIView):
+    queryset = Celeb.objects.all()
+    serializer_class = CelebSerializer
 
 
-def moviesHandler(request):
-    return HttpResponse(f'<h2>This is the movies handler page</ht>')
+class MovieView(generics.CreateAPIView):
+    queryset = Movie.objects.all()
+    serializer_class = MovieSerializer
+
+
+@api_view(['GET'])
+def search(request):
+    if request.method == "GET":
+        celeb_data = celebDetail(request.GET.get('key'))
+        return Response(celeb_data)
+    else:
+        return Response({'error': 'Method not allowed'})

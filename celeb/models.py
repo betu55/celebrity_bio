@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 # Create your models here.
 
 
-class Celebrity(models.Model):
+class Celeb(models.Model):
 
     name = models.CharField(max_length=100)
     age = models.IntegerField()
@@ -17,8 +17,9 @@ class Movie(models.Model):
 
     title = models.CharField(max_length=50)
     release_year = models.IntegerField(null=True, blank=True)
+    rating = models.FloatField(null=True)
     celeb = models.ForeignKey(
-        Celebrity, on_delete=models.CASCADE, null=True, blank=True, related_name='movies')
+        Celeb, on_delete=models.CASCADE, null=True, blank=True, related_name='movies')
 
     def __str__(self):
         return self.title
